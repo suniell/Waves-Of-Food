@@ -5,31 +5,28 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.wavesoffood.databinding.ActivityMainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.wavesoffood.databinding.ActivityPayOutBinding
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+class PayOutActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityPayOutBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
         enableEdgeToEdge()
+        binding = ActivityPayOutBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-      var NavController = findNavController(R.id.fragmentContainerView)
-        var Bottomnav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        Bottomnav.setupWithNavController(NavController)
 
-        binding.notificationButton.setOnClickListener {
-            val bottomSheetDialog = Notification_Bottom_Fragment()
-            bottomSheetDialog.show(supportFragmentManager, "Test")
+        binding.Placeorderbutton.setOnClickListener {
+            val bottomSheetDialog = CongratsBottomSheet()
+            bottomSheetDialog.show(supportFragmentManager,"Test")
         }
+
+
 
 
 

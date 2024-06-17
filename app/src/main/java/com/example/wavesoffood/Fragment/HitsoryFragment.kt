@@ -5,56 +5,43 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wavesoffood.R
+import com.example.wavesoffood.adaptar.BuyAgainAdaptar
+import com.example.wavesoffood.adaptar.MenuAdapter
+import com.example.wavesoffood.databinding.BuyAgainItemBinding
+import com.example.wavesoffood.databinding.FragmentHitsoryBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [HitsoryFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HitsoryFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var binding: FragmentHitsoryBinding
+    private lateinit var buyAgainAdapter: BuyAgainAdaptar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentHitsoryBinding.inflate(layoutInflater,container,false)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hitsory, container, false)
+        setupRecyclerView()
+        return binding.root
+    }
+
+    private fun setupRecyclerView(){
+        val buyAgainFoodName = arrayListOf("Food 1", "Food 2", "Food 3")
+        val buyAgainFoodPrice = arrayListOf("$10", "$20", "$20")
+        val buyAgainFoodImage = arrayListOf(R.drawable.menu1,R.drawable.menu2,R.drawable.menu3)
+        buyAgainAdapter = BuyAgainAdaptar(buyAgainFoodName,buyAgainFoodPrice,buyAgainFoodImage)
+        binding.BuyAgainRecyclerView.adapter = buyAgainAdapter
+        binding.BuyAgainRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HitsoryFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HitsoryFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }
