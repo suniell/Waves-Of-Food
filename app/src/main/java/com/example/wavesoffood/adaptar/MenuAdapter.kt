@@ -13,16 +13,17 @@ import com.example.wavesoffood.DetailsActivity
 import com.example.wavesoffood.databinding.FragmentMenuBootomSheetBinding
 import com.example.wavesoffood.databinding.MenuItemBinding
 
-class MenuAdapter (private val menuItemsName:MutableList<String>, private val menuItemPrice:MutableList<String>, private val MenuImage:MutableList<Int>, private val requireContext: Context) : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
+class MenuAdapter(
+
+    private val requireContext: Context
+) : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 
 
-private val itemClickListener: OnClickListener ?= null
+    private val itemClickListener: OnClickListener? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
         val binding = MenuItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MenuViewHolder(binding)
     }
-
-
 
 
     override fun onBindViewHolder(holder: MenuViewHolder, position: Int) {
@@ -32,11 +33,12 @@ private val itemClickListener: OnClickListener ?= null
 
     override fun getItemCount(): Int = menuItemsName.size
 
-    inner class MenuViewHolder(private val binding: MenuItemBinding) :RecyclerView.ViewHolder(binding.root) {
+    inner class MenuViewHolder(private val binding: MenuItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
                 val position = adapterPosition
-                if ( position != RecyclerView.NO_POSITION ){
+                if (position != RecyclerView.NO_POSITION) {
                     itemClickListener?.onItemClick(position)
                 }
                 // seton click listener to open food details
@@ -54,13 +56,12 @@ private val itemClickListener: OnClickListener ?= null
                 menuImage.setImageResource(MenuImage[position])
 
 
-
-
             }
         }
 
     }
-    interface OnClickListener{
+
+    interface OnClickListener {
 
         fun onItemClick(position: Int)
 

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Waves Of Food</string>
+    <string name="default_web_client_id" translatable="false">1008669819653-ar7r0qdb4dqqadkqu7r670g5pufian97.apps.googleusercontent.com</string>
     <string name="next">Next</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
