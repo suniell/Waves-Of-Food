@@ -14,12 +14,11 @@ import com.example.wavesoffood.databinding.FragmentMenuBootomSheetBinding
 import com.example.wavesoffood.databinding.MenuItemBinding
 
 class MenuAdapter(
-
+    private val menuItems: List<MenuItem>,
     private val requireContext: Context
 ) : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 
 
-    private val itemClickListener: OnClickListener? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
         val binding = MenuItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MenuViewHolder(binding)
@@ -31,29 +30,42 @@ class MenuAdapter(
     }
 
 
-    override fun getItemCount(): Int = menuItemsName.size
+    override fun getItemCount(): Int = menuItems.size
 
-    inner class MenuViewHolder(private val binding: MenuItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class MenuViewHolder(private val binding: MenuItemBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    itemClickListener?.onItemClick(position)
+                    openDetailsActivity(position)
                 }
-                // seton click listener to open food details
-                val intent = Intent(requireContext, DetailsActivity::class.java)
-                intent.putExtra("MenuItemName", menuItemsName.get(position))
-                intent.putExtra("MenuItemImage", MenuImage.get(position))
-                requireContext.startActivity(intent)
+
             }
         }
 
+        private fun openDetailsActivity(position: Int) {
+            val menuItem = menuItems[position]
+            // a intent to open details activity and pass data
+            val intent = Intent(requireContext, DetailsActivity::class.java).apply {
+                putExtra("MenuItemName", menuItem.foodName)
+                putExtra("MenuItemImage", menuItem.foodImageUrl)
+                putExtra("MenuItemDescription", menuItem.fooddescription)
+                putExtra("MenuItemIngredients", menuItem.foodIngredients)
+                putExtra("MenuItemPrice", menuItem.foodPrice)
+
+            }
+
+            // start the details Activity
+            requireContext.startActivity(intent)
+
+        }
+
         fun bind(position: Int) {
+            val menuItem = menuItems[position]
             binding.apply {
-                menuFoodName.text = menuItemsName[position]
-                menuPrice.text = menuItemPrice[position]
-                menuImage.setImageResource(MenuImage[position])
+                menuFoodName.text = menuItems
+                menuPrice.text = menuItems[position]
+                menuImage.setImageResource(menuItems.)
 
 
             }
@@ -69,9 +81,3 @@ class MenuAdapter(
 
 
 }
-
-
-
-
-
-
